@@ -1,0 +1,99 @@
+@import "../../scss/variables";
+@import "~@angular/material/theming";
+
+web-player {
+  display: block;
+  position: relative;
+  background-color: $wp-bg-color-500;
+  color: $wp-text-color-200;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  > .player-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: calc(100% - #{$wp-controls-height});
+    position: relative;
+    flex: 1 1 auto;
+    overflow: hidden;
+
+    .page-content {
+      width: 100%;
+      background-color: inherit;
+      color: inherit;
+
+      .mat-drawer {
+        color: inherit;
+        background-color: inherit;
+      }
+      
+      .mat-drawer-content {
+        display: flex;
+        overflow: visible;
+      }
+    }
+
+    &.mobile {
+      height: calc(100% - #{$wp-mobile-controls-height});
+    }
+  }
+
+  .html5-player .img-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: transparent;
+    z-index: 2;
+    
+    > playback-control-button {
+      display: block;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid hsla(0,0%,100%,.6);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      color: $wp-text-color-100;
+      transition: transform 0.3s cubic-bezier(0,0,0,2.41);
+
+      > button, > playing-indicator {
+        width: 100%;
+        height: 100%;
+      }
+
+      > playing-indicator > svg-icon {
+        padding: 9px 0;
+      }
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      svg-icon {
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .mat-icon-button[disabled][disabled] {
+    color: rgba(255, 255, 255, 0.24);
+  }
+
+  loading-indicator.overlay {
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  no-results-message .text {
+    color: $wp-text-color-200;
+  }
+}

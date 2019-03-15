@@ -1,0 +1,58 @@
+<aside class="admin-pill-nav solid with-actions">
+    <div class="new-localization">
+        <button mat-button class="button primary flat" (click)="showCrupdateLocalizationModal()" *ngIf="currentUser.hasPermission('localizations.create')">
+            <svg-icon name="add"></svg-icon>
+            <span trans>New Localization</span>
+        </button>
+    </div>
+    <div class="nav-item" *ngFor="let localization of localizations" (click)="setSelectedLocalization(localization)" [class.selected]="selectedLocalization.model.id == localization.model.id">
+        <div class="name">{{localization.model.name}}</div>
+
+        <div class="actions">
+            <button class="no-style" (click)="$event.stopPropagation()" [matMenuTriggerFor]="actionsMenu" ><svg-icon name="settings" class="size-22"></svg-icon></button>
+            <mat-menu #actionsMenu>
+                <div mat-menu-item (click)="setDefaultLocalization(localization)" *ngIf="currentUser.hasPermission('settings.update')" trans>Set as Default</div>
+                <div mat-menu-item (click)="showCrupdateLocalizationModal(localization)" *ngIf="localization.name !== 'English' && currentUser.hasPermission('localizations.update')" trans>Rename</div>
+                <div mat-menu-item (click)="confirmLocalizationDeletion(localization)" *ngIf="localization.name !== 'English' && currentUser.hasPermission('localizations.delete')" trans>Delete</div>
+            </mat-menu>
+        </div>
+    </div>
+    <div class="update-translations">
+        <button mat-raised-button color="accent" class="button primary" (click)="updateLocalization()" *ngIf="currentUser.hasPermission('localizations.update')" trans>Update</button>
+    </div>
+</aside>
+
+<section class="admin-table-panel spacing">
+    <div class="admin-table-panel-header">
+        <div class="header-inner default">
+            <div class="left">
+                {{selectedLocalization.model.name}} <span trans>Translations</span>
+            </div>
+            <div class="right">
+                <div class="input-container">
+                    <input type="text" class="search" placeholder="Search Translations" trans-placeholder [formControl]="searchQuery">
+                    <svg-icon name="search"></svg-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="admin-table admin-table-bordered admin-table-compact admin-table-center-vertical">
+
+        <mat-table [dataSource]="tableDataSource">
+            <ng-container matColumnDef="sourceText">
+                <mat-header-cell *matHeaderCellDef trans>Source Text</mat-header-cell>
+                <mat-cell *matCellDef="let line">{{line.key}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="translation">
+                <mat-header-cell *matHeaderCellDef trans>Translation</mat-header-cell>
+                <mat-cell *matCellDef="let line">
+                    <input type="text" class="admin-table-item translation" id="{{line.key}}" [(ngModel)]="selectedLocalization.lines[line.key]">
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="['sourceText', 'translation']"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: ['sourceText', 'translation']"></mat-row>
+        </mat-table>
+    </div>
+</section>

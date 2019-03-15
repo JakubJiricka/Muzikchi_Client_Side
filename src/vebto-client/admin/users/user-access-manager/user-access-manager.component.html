@@ -1,0 +1,20 @@
+<div class="panel-outter">
+    <div class="header">
+        <div class="title" trans>Groups</div>
+        <div class="add-button" *ngIf="!readonly">
+            <button mat-flat-button color="accent" class="select-groups-modal-button" (click)="openSelectGroupsModal()" type="button" trans>Add</button
+        ></div>
+    </div>
+    <div class="panel-body groups">
+        <div class="no-permissions" *ngIf="!user.groups || !user.groups.length" trans>No groups yet.</div>
+
+        <mat-chip-list [selectable]="false">
+            <mat-chip (removed)="detachGroups([group.id])" [removable]="true" *ngFor="let group of user.groups" [disabled]="readonly">
+                <span>{{group.name}}</span>
+                <svg-icon name="cancel" matChipRemove></svg-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </div>
+</div>
+
+<permissions-manager-panel [permissions]="user.permissions" (change)="user.permissions = $event"></permissions-manager-panel>

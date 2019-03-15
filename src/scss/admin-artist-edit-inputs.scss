@@ -1,0 +1,61 @@
+@import "variables";
+
+$input-offset: 110px;
+
+.admin-artist-edit-inputs {
+  .input-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &.with-addon {
+      > input {
+        border-left: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      > .addon {
+        height: 46px;
+        padding: 0 15px;
+        background-color: $site-accent-color;
+        color: #fff;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+    }
+
+    label {
+      margin-right: 10px;
+      width: 100px;
+      flex: 0 0 100px;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      width: auto;
+      flex: 1 1 auto;
+    }
+
+    textarea {
+      height: 92px;
+    }
+
+    p {
+      width: 100%;
+      margin-left: $input-offset;
+    }
+
+    .error {
+      width: 100%;
+      margin-left: $input-offset;
+    }
+
+    &:not(.media-autocomplete-input-container) .mat-chip-list {
+      width: 100%;
+      flex: 1 1 auto;
+      margin-left: $input-offset;
+      margin-top: 8px;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@import "../../scss/variables";
+
+translations {
+  display: flex;
+  margin: 25px;
+
+  > .admin-table-panel {
+    flex: 1 1 auto;
+
+    > .admin-table .admin-table-item {
+      font-weight: 400;
+      height: auto;
+      min-height: 40px;
+    }
+
+    .translation {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      border: none;
+      background-color: transparent;
+      padding: 0 10px;
+    }
+  }
+
+  > aside {
+    .new-localization {
+      border-bottom: 1px solid $site-border-color-200;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+
+    .update-translations {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid $site-border-color-200;
+    }
+  }
+}

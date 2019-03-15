@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <h2 class="modal-title mat-dialog-title" mat-dialog-title *ngIf="updating" trans>Update Group</h2>
+    <h2 class="modal-title mat-dialog-title" mat-dialog-title *ngIf="!updating" trans>Create a New Group</h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button"><svg-icon name="close"></svg-icon></button>
+</div>
+
+<form autocomplete="off" (submit)="confirm()" ngNativeValidate>
+   <div class="many-inputs mat-dialog-content" mat-dialog-content>
+       <div class="input-container">
+           <label for="name" trans>Name</label>
+           <input type="text" [(ngModel)]="model.name" name="name" id="name" required>
+           <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+       </div>
+
+       <permissions-manager-panel [permissions]="model.permissions" [errors]="errors" (change)="model.permissions = $event"></permissions-manager-panel>
+
+       <div class="setting-container">
+           <mat-slide-toggle [(ngModel)]="model.default" name="default" id="default" trans>Default</mat-slide-toggle>
+           <p trans>Assign this group to new users automatically.</p>
+           <div class="error" *ngIf="errors.default">{{errors.default}}</div>
+       </div>
+
+       <div class="setting-container">
+           <mat-slide-toggle name="guest" id="guest" [(ngModel)]="model.guests" trans>Guests</mat-slide-toggle>
+           <p trans>Assign this group to guests (not logged in users).</p>
+           <div class="error" *ngIf="errors.guests">{{errors.guests}}</div>
+       </div>
+   </div>
+
+    <div class="buttons right mat-dialog-actions" mat-dialog-actions>
+        <button (click)="close()" type="button" class="button cancel" mat-button trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent">
+            <span *ngIf="updating" trans>Update</span>
+            <span *ngIf="!updating" trans>Create</span>
+        </button>
+    </div>
+</form>

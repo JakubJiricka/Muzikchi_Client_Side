@@ -1,0 +1,38 @@
+@import "../../../scss/variables";
+
+plan-features-list {
+  display: block;
+  flex: 1 1 auto;
+  text-align: center;
+  width: 100%;
+
+  .mat-list {
+    overflow: hidden;
+    width: 100%;
+
+    &.dense {
+      .mat-list-item {
+        height: 38px;
+        font-size: 1.5rem;
+      }
+
+      .mat-list-icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      .mat-list-text {
+        padding-left: 5px;
+      }
+    }
+
+    .mat-list-item-content {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .check-icon {
+      color: $site-accent-color;
+    }
+  }
+}

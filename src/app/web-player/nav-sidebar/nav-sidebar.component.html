@@ -1,0 +1,100 @@
+<div class="content scroll-container" customScrollbar>
+    <a class="logo-container" routerLink="/">
+        <img [src]="settings.get('branding.logo_dark')">
+    </a>
+
+    <form class="search-bar-container" (ngSubmit)="searchPanel.goToSearchPage()">
+        <label for="search" class="hidden" trans>Main site search</label>
+        <input id="search" placeholder="Search..." [formControl]="searchPanel.searchQuery" autocomplete="off" trans-placeholder>
+
+
+        <svg-icon name="search" [class.hidden]="searchPanel.searching || searchPanel.searchQuery.value" (click)="searchPanel.goToSearchPage()"></svg-icon>
+
+        <button type="button" class="no-style" (click)="searchPanel.close()">
+            <svg-icon name="close" [class.hidden]="searchPanel.searching || ! searchPanel.searchQuery.value"></svg-icon>
+        </button>
+
+        <div>
+            <ng-container>
+                <a class="search-container"  (click)="langChange('english')" >
+                    <img [src]="langEnglish">
+                </a>
+                <a class="search-container" (click)="langChange('farsi')" >
+                    <img [src]="langFarsi">
+                </a>
+            </ng-container>
+        </div>
+
+        <loading-indicator [isVisible]="searchPanel.searching"></loading-indicator>
+
+    </form>
+
+    <custom-menu position="sidebar-primary" class="sidebar-nav"></custom-menu>
+
+    <div class="separator"></div>
+
+    <div class="auth-container">
+        <div *ngIf="currentUser.isLoggedIn()" class="current-user">
+            <a [routerLink]="urls.user(currentUser.getModel())" class="img-container">
+                <img [src]="currentUser.get('avatar')">
+            </a>
+            <a class="name hover-underline" [routerLink]="urls.user(currentUser.getModel())">{{currentUser.get('display_name')}}</a>
+
+            <button mat-icon-button [matMenuTriggerFor]="navSidebarMenu" class="settings-button">
+                <svg-icon name="settings"></svg-icon>
+            </button>
+
+            <mat-menu #navSidebarMenu="matMenu">
+                <a mat-menu-item routerLink="/admin" *ngIf="currentUser.hasPermission('access.admin')">
+                    <svg-icon name="dashboard" class="mat-icon"></svg-icon>
+                    <span trans>Admin Area</span>
+                </a>
+                <a mat-menu-item routerLink="/account/settings">
+                    <svg-icon name="account-circle" class="mat-icon"></svg-icon>
+                    <span trans>Account Settings</span>
+                </a>
+                <div mat-menu-item (click)="auth.logOut()">
+                    <svg-icon class="logout-icon mat-icon" name="exit-to-app"></svg-icon>
+                    <span trans>Logout</span>
+                </div>
+            </mat-menu>
+        </div>
+
+        <ng-container *ngIf="!currentUser.isLoggedIn()">
+            <a routerLink="/login" mat-raised-button color="accent" trans>Login</a>
+            <a routerLink="/register" mat-button trans>Register</a>
+        </ng-container>
+    </div>
+
+    <div class="your-music-container">
+        <div class="title" trans>Your Music</div>
+        <custom-menu position="sidebar-secondary" class="sidebar-nav"></custom-menu>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="playlists-container">
+        <div class="header">
+            <div class="name" trans>Playlists</div>
+            <button mat-icon-button class="new-playlist-button" (click)="openNewPlaylistModal()">
+                <svg-icon name="playlist-add"></svg-icon>
+            </button>
+        </div>
+        <div class="playlists sidebar-nav">
+            <div class="sidebar-nav-item playlist" *ngFor="let playlist of playlists.get()" [contextMenu]="{item: playlist, type: 'playlist'}">
+                <a [routerLink]="urls.playlist(playlist)">{{playlist.name}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="current-track" *ngIf="player.cued()" [contextMenu]="{item: player.getCuedTrack(), type: 'track'}">
+    <img [src]="getTrackImage(player.getCuedTrack())">
+    <div class="meta">
+        <a class="track-name hover-underline" [routerLink]="urls.track(player.getCuedTrack())">{{player.getCuedTrack().name}}</a>
+        <artists-links-list class="artist-name" [artists]="player.getCuedTrack().artists"></artists-links-list>
+    </div>
+    <div class="toggle-track">
+        <library-track-toggle-button [track]="player.getCuedTrack()"></library-track-toggle-button>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+@import "../../../scss/variables";
+
+.select-permissions-modal-container {
+
+  .mat-dialog-container {
+    background-color: $site-bg-color-200;
+  }
+
+  select-permissions-modal {
+    display: block;
+
+    .mat-accordion {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .mat-expansion-panel-header-title {
+      text-transform: capitalize;
+    }
+  }
+}

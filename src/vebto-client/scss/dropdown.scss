@@ -1,0 +1,13 @@
+.menu-with-alt-text {
+  width: 320px;
+
+  .mat-menu-item {
+    display: flex;
+
+    > .alt-text {
+      margin-left: auto;
+      color: $site-text-color-300;
+      font-size: 13px;
+    }
+  }
+}

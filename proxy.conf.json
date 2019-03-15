@@ -1,0 +1,6 @@
+{
+  "/secure": {
+      "target": "http://localhost",
+      "secure": false
+  }
+}

@@ -1,0 +1,51 @@
+@import "../../../../scss/variables";
+
+add-menu-item-panel {
+  position: fixed;
+  background-color: $site-bg-color-200;
+  box-shadow: $box-shadow-3;
+  overflow: hidden;
+  width: 300px;
+  border-radius: 4px;
+  left: 345px;
+  top: 50px;
+
+  > .header {
+    display: block ;
+    position: relative;
+    background-color: #fff;
+    padding: 10px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid $site-border-color-200;
+    margin-bottom: 10px;
+
+    > svg-icon {
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      cursor: pointer;
+      color: $icon-color-dark;
+    }
+  }
+
+  .new-item-tabs {
+    padding: 10px;
+
+    .items-list {
+      overflow: auto;
+      max-height: 300px;
+
+      > .item {
+        color: $link-color;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid $site-border-color-200;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

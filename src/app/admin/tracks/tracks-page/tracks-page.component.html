@@ -1,0 +1,49 @@
+<data-table [dataSource]="dataSource" itemsName="tracks" matSort>
+    <button mat-raised-button color="accent" (click)="openCrupdateTrackModal()" *ngIf="currentUser.hasPermission('tracks.create')" headerActions trans>Add</button>
+
+    <button mat-icon-button (click)="maybeDeleteSelectedTracks()" *ngIf="currentUser.hasPermission('tracks.delete')" headerSelectedActions trans>
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef trans>Image</mat-header-cell>
+        <mat-cell *matCellDef="let track"><img [src]="track.album.image"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let track"> {{track.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Number</mat-header-cell>
+        <mat-cell *matCellDef="let track"> {{track.number}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="artists">
+        <mat-header-cell *matHeaderCellDef trans>Artists</mat-header-cell>
+        <mat-cell *matCellDef="let track"> {{track.artists ? track.artists.join(', ') : '-'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="duration">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Duration</mat-header-cell>
+        <mat-cell *matCellDef="let track"> {{formatDuration(track.duration)}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="plays">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Plays</mat-header-cell>
+        <mat-cell *matCellDef="let track"> {{track.plays}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let track">
+            <button mat-icon-button (click)="openCrupdateLyricModal(track)" *ngIf="currentUser.hasPermission('lyrics.update')" matTooltip="Edit lyrics">
+                <svg-icon name="closed-caption"></svg-icon>
+            </button>
+            <button mat-icon-button (click)="openCrupdateTrackModal(track)" *ngIf="currentUser.hasPermission('tracks.update')" matTooltip="Edit track">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

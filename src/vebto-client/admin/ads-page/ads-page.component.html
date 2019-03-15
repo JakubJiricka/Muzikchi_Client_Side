@@ -1,0 +1,16 @@
+<form class="panel many-inputs" (ngSubmit)="saveAds()" ngNativeValidate>
+    <div class="header" trans>Predefined AD Slots</div>
+
+    <div class="input-container" *ngFor="let ad of settings.get('vebto.admin.ads')">
+        <label [for]="ad.slot">{{ad.name}}</label>
+        <textarea [name]="ad.slot" [id]="ad.slot" [(ngModel)]="ads[ad.slot]"></textarea>
+        <p>{{ad.description}}</p>
+    </div>
+
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="ads.disable" id="ads.disable" [(ngModel)]="ads['ads.disable']" trans>Disable Ads</mat-slide-toggle>
+        <p trans>Disable all ad related functionality.</p>
+    </div>
+
+    <button type="submit" mat-raised-button color="accent" class="save-button" [disabled]="loading" trans>Save</button>
+</form>

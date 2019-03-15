@@ -1,0 +1,13 @@
+<ng-container *ngIf="state.selectedPlan">
+    <div class="line">
+        <div class="summary-left">
+            <full-plan-name [plan]="state.selectedPlan"></full-plan-name>
+        </div>
+        <div class="summary-right">{{state.selectedPlan.amount | currency:state.selectedPlan.currency}}</div>
+    </div>
+
+    <div class="line emphasis">
+        <div class="summary-left" trans>Total</div>
+        <div class="summary-right">{{state.selectedPlan.amount | currency:state.selectedPlan.currency}}</div>
+    </div>
+</ng-container>

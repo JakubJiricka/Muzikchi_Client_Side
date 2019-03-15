@@ -1,0 +1,34 @@
+@import "../../../../scss/variables";
+
+crupdate-plan-modal {
+  display: block;
+
+  .plan-features {
+    > .title {
+      font-weight: 500;
+      border-bottom: 1px solid $site-border-color-200;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+    }
+
+    > p {
+      margin-top: 0;
+    }
+
+    .mat-list .mat-list-item {
+      .delete-button {
+        color: $danger-bg-color;
+      }
+
+      .drag-handle {
+        cursor: move;
+      }
+
+      .mat-list-item-content {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding: 0;
+      }
+    }
+  }
+}

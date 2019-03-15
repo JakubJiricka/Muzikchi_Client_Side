@@ -1,0 +1,18 @@
+@import "variables";
+
+.setting-toggle-container {
+  margin-bottom: 30px;
+
+  &.margin-top {
+    margin-top: 30px;
+  }
+
+  &.margin-bottom {
+    margin-bottom: 30px;
+  }
+
+  > p {
+    color: $site-text-color-300;
+    margin-top: 5px;
+  }
+}

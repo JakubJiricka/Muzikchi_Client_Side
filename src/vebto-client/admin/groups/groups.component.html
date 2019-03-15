@@ -1,0 +1,62 @@
+<div class="spacing-container">
+    <section class="admin-pill-nav solid with-actions">
+        <div class="new-group">
+            <button mat-raised-button color="accent" (click)="showCrupdateGroupModal()" *ngIf="currentUser.hasPermission('groups.create')" trans>New Group</button>
+        </div>
+        <div class="nav-item" *ngFor="let group of groups" (click)="selectGroup(group)" [class.selected]="selectedGroup == group">
+            <div class="name">{{group.name}}</div>
+
+            <div class="actions">
+                <button class="no-style" [matMenuTriggerFor]="actionsMenu" (click)="$event.stopPropagation()">
+                    <svg-icon name="settings" class="size-22"></svg-icon>
+                </button>
+                <mat-menu #actionsMenu>
+                    <div mat-menu-item (click)="showCrupdateGroupModal(group)" *ngIf="currentUser.hasPermission('groups.update')" trans>Edit</div>
+                    <div mat-menu-item (click)="maybeDeleteGroup(group)" *ngIf="currentUser.hasPermission('groups.delete')" trans>Delete</div>
+                </mat-menu>
+            </div>
+        </div>
+    </section>
+
+    <data-table [dataSource]="dataSource" itemsName="users" matSort>
+        <ng-container headerActions *ngIf="currentUser.hasPermission('groups.update')">
+            <button class="assign-users-button" mat-raised-button color="accent" (click)="showAssignUsersModal()" [disabled]="!canAssignUsers()" trans>Assign Users</button>
+            <button mat-raised-button color="accent" (click)="maybeDetachUsers()" [disabled]="!dataSource.anyRowsSelected()" trans>Unassign Users</button>
+        </ng-container>
+
+        <ng-container matColumnDef="avatar">
+            <mat-header-cell *matHeaderCellDef trans>Avatar</mat-header-cell>
+            <mat-cell *matCellDef="let user"> <img [src]="user.avatar"> </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Email</mat-header-cell>
+            <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="first_name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>First Name</mat-header-cell>
+            <mat-cell *matCellDef="let user"> {{user.first_name ? user.first_name : '-'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="last_name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Last Name</mat-header-cell>
+            <mat-cell *matCellDef="let user"> {{user.last_name ? user.last_name : '-'}} </mat-cell>
+        </ng-container>
+
+        <no-results-message *ngIf="!selectedGroup.guests && dataSource.isEmpty()">
+            <span primary-text trans>Nothing To Display.</span>
+            <span secondary-text trans>There are no users in this group yet.</span>
+        </no-results-message>
+
+        <no-results-message *ngIf="selectedGroup.guests">
+            <span primary-text trans>Guests Group</span>
+            <span secondary-text trans>Users can't be assigned to this group.</span>
+        </no-results-message>
+
+        <no-results-message *ngIf="!selectedGroup">
+            <span primary-text trans>No group selected</span>
+            <span secondary-text trans>Select a group from the left.</span>
+        </no-results-message>
+    </data-table>
+</div>

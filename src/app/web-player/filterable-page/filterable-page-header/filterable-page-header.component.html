@@ -1,0 +1,7 @@
+<div class="title"><ng-content></ng-content></div>
+<div class="filter-bar input-container">
+    <label for="popular-albums-filter" class="hidden">Filter items</label>
+    <input id="popular-albums-filter" [formControl]="filterQuery" #filterInput placeholder="Filter..." trans-placeholder>
+    <svg-icon name="search" class="size-22"></svg-icon>
+    <img [src]="langFarsi" (click)="langChange()" *ngIf="state.isMobile" >
+</div>

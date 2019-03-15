@@ -1,0 +1,56 @@
+@import "../../scss/variables";
+
+.scroll-container, .scroll-container-x {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &.ps {
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+.scroll-container-x {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+img {
+  display: block;
+}
+
+.block {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: $link-color;
+
+  &.hover-underline {
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+.error {
+  color: $danger-bg-color;
+
+  &.margin-bottom {
+    margin-bottom: 20px;
+  }
+
+  &.margin-top {
+    margin-top: 20px;
+  }
+}

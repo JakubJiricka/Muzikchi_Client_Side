@@ -1,0 +1,5 @@
+<button class="no-style color-picker-container" (click)="openColorPicker($event)">
+    <svg-icon name="drop-custom" class="color-icon" [style.color]="field.value"></svg-icon>
+    <span class="name">{{field.name}}</span>
+    <span class="change" trans>Change</span>
+</button>

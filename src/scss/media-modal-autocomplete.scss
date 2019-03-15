@@ -1,0 +1,64 @@
+@import "./variables";
+
+.media-autocomplete-panel {
+  .mat-option-text {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      object-fit: cover;
+      margin-right: 5px;
+    }
+
+    > span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .multiple-lines {
+      line-height: normal;
+      font-size: 1.4rem;
+
+      > .secondary {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.modal {
+  .media-autocomplete-input-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .mat-chip-list {
+      display: block;
+      width: 100%;
+      margin: 10px 0 0 160px;
+    }
+
+    input {
+      margin: 0;
+      flex: 1 1;
+    }
+
+    img {
+      width: 45px;
+      height: 45px;
+      flex: 0 0 45px;
+      object-fit: cover;
+      margin-right: 8px;
+      border-radius: 4px;
+    }
+
+    p {
+      flex: 0 0 100%;
+      width: 100%;
+      font-size: 1.3rem;
+      color: inherit;
+    }
+  }
+}

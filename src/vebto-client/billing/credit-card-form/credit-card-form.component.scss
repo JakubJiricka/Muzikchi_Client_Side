@@ -1,0 +1,38 @@
+@import "../../scss/variables";
+
+credit-card-form {
+  display: block;
+  position: relative;
+
+  .input-container {
+    max-width: 400px;
+
+    input, select, .fake-input {
+      border-radius: 4px;
+      height: 46px;
+      padding: 14px;
+      user-select: none;
+    }
+  }
+
+  .expiration-date {
+    display: flex;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    > select {
+      display: block;
+      flex: 1 1 auto;
+      width: initial;
+    }
+
+    > .expiration-month {
+      margin-right: 10px;
+    }
+  }
+
+  button[type=submit] {
+    margin-bottom: 5px;
+  }
+}

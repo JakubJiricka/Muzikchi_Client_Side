@@ -1,0 +1,36 @@
+<data-table [dataSource]="dataSource" itemsName="pages" matSort>
+    <a routerLink="new" mat-raised-button color="accent" *ngIf="currentUser.hasPermission('pages.create')" headerActions trans>Add</a>
+
+    <button mat-icon-button matTooltip="Delete selected" (click)="maybeDeleteSelectedPages()" headerSelectedActions *ngIf="currentUser.hasPermission('pages.delete')">
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="slug">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Slug</mat-header-cell>
+        <mat-cell *matCellDef="let page"> {{page.slug}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="body">
+        <mat-header-cell *matHeaderCellDef trans>Body</mat-header-cell>
+        <mat-cell *matCellDef="let page"> {{page.body}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+        <mat-header-cell *matHeaderCellDef trans>Created At</mat-header-cell>
+        <mat-cell *matCellDef="let page"> {{page.created_at | formattedDate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updated_at">
+        <mat-header-cell *matHeaderCellDef trans>Last Updated</mat-header-cell>
+        <mat-cell *matCellDef="let page"> {{page.updated_at | formattedDate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let page">
+            <a [routerLink]="[page.id, 'edit']" mat-icon-button *ngIf="currentUser.hasPermission('pages.update')" matTooltip="Edit page">
+                <svg-icon name="edit"></svg-icon>
+            </a>
+        </mat-cell>
+    </ng-container>
+</data-table>

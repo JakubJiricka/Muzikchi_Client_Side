@@ -1,0 +1,19 @@
+<div class="container">
+    <a routerLink="/">
+        <img class="logo" *ngIf="config.get('branding.logo_light')" [src]="config.get('branding.logo_light')">
+        <div class="text-logo" *ngIf="!config.get('branding.logo_light')">{{config.get('branding.site_name')}}</div>
+    </a>
+
+    <button class="no-style toggle-sidebar-button" mat-icon-button *ngIf="showToggleButton" (click)="toggleButtonClick.emit()">
+        <svg-icon name="menu"></svg-icon>
+    </button>
+
+    <custom-menu [position]="menuPosition"></custom-menu>
+
+    <logged-in-user-widget>
+        <a mat-menu-item [routerLink]="item.route" *ngFor="let item of config.get('vebto.navbar.dropdownItems')">
+            <svg-icon class="mat-icon" [name]="item.icon"></svg-icon>
+            <span>{{item.name}}</span>
+        </a>
+    </logged-in-user-widget>
+</div>

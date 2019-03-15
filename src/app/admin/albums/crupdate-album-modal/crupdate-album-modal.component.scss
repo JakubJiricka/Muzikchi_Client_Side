@@ -1,0 +1,22 @@
+@import "../../../../scss/variables";
+@import "../../../../scss/admin-artist-edit-main-info";
+@import "../../../../scss/admin-artist-edit-inputs";
+
+.crupdate-album-modal-container {
+  width: 90%;
+  height: 90%;
+}
+
+new-album-modal {
+  .mat-dialog-content {
+    max-height: 100%;
+  }
+
+  .admin-table-panel {
+    margin: 25px 0 0;
+  }
+
+  .close-button {
+    display: none;
+  }
+}

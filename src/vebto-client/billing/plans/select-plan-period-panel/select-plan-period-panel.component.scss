@@ -1,0 +1,88 @@
+@import "../../../scss/variables";
+
+select-plan-period-panel {
+  display: block;
+
+  .left-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .actions {
+    margin-top: auto;
+  }
+
+  .title {
+    font-size: 2.1rem;
+    font-weight: 300;
+    margin-bottom: 40px;
+  }
+
+  .periods {
+    margin-bottom: 40px;
+
+    > .radio-button-wrapper {
+      display: flex;
+      align-items: center;
+      margin-bottom: 35px;
+
+      &.no-label {
+        padding-left: 90px;
+      }
+
+      > .savings-label {
+        width: 90px;
+        height: 28px;
+        line-height: 28px;
+        padding-left: 22px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        background-color: $site-accent-color;
+        color: $site-text-color-100;
+        position: relative;
+
+        &:after {
+          content: " ";
+          left: 100%;
+          top: 50%;
+          height: 0;
+          width: 0;
+          border: 14px solid transparent;
+          border-left-color: $site-accent-color;
+          position: absolute;
+          pointer-events: none;
+          margin-top: -14px;
+        }
+
+        &:before {
+          content: " ";
+          left: 0;
+          top: 50%;
+          height: 0;
+          width: 0;
+          border: 14px solid transparent;
+          border-left-color: $site-bg-color-100;
+          position: absolute;
+          pointer-events: none;
+          margin-top: -14px;
+        }
+      }
+
+      > .period {
+        display: block;
+        margin-left: 30px;
+
+        .mat-radio-label-content {
+          display: flex;
+          font-size: 1.5rem;
+
+          > .name {
+            font-weight: 500;
+            padding-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}

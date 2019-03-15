@@ -1,0 +1,57 @@
+@import "../../../scss/variables";
+
+logged-in-user-widget {
+  display: block;
+  margin-left: 30px;
+  font-weight: normal;
+  position: relative;
+  cursor: pointer;
+
+  &:empty {
+    display: none;
+  }
+
+  > .menu-trigger {
+    display: flex;
+    align-items: center;
+    max-width: 250px;
+    overflow: hidden;
+
+    .email {
+      margin-left: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .avatar {
+      height: 40px;
+      width: 40px;
+      flex: 0 0 40px;
+      object-fit: cover;
+    }
+
+    .mobile-toggle {
+      display: none;
+
+      > svg-icon {
+        display: block;
+      }
+    }
+  }
+
+  @media only screen and (max-width: $tablet) {
+    .avatar, .email {
+      display: none;
+    }
+
+    .mobile-toggle {
+      display: block;
+    }
+  }
+}
+
+.logged-in-user-widget-menu {
+  .logout-item  > svg-icon {
+    color: $danger-bg-color;
+  }
+}

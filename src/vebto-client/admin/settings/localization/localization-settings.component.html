@@ -1,0 +1,44 @@
+<div class="header">
+    <div class="title" trans>Localization</div>
+    <div class="subtitle" trans>Manage localization settings for the site.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()">
+
+    <div class="input-container">
+        <label for="app.timezone" trans>Timezone</label>
+        <input name="app.timezone" id="app.timezone" [(ngModel)]="state.server['app_timezone']">
+        <p><span trans>List of supported timezones can be found</span> <a target="_blank" href="http://php.net/manual/en/timezones.php"> here.</a></p>
+    </div>
+
+    <div class="input-container">
+        <label for="i18n.default_localization" trans>Translations Locale</label>
+        <select name="i18n.default_localization" id="i18n.default_localization" [(ngModel)]="state.client['i18n.default_localization']">
+            <option value="{{localization.model.name}}" *ngFor="let localization of localizations">{{localization.model.name}}</option>
+        </select>
+        <p trans>Default translations locale that will be applied to new users.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="dates.locale" trans>Date Locale</label>
+        <input name="dates.locale" id="dates.locale" [(ngModel)]="state.client['dates.locale']">
+        <p trans>Set locale used for date and time translation. Selected locale must be installed on the operating system.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="dates.format" trans>Date Format</label>
+        <input name="dates.format" id="dates.format" [(ngModel)]="state.client['dates.format']">
+        <p>
+            <span trans>Default format for dates on the site. Consult table </span> <a target="_blank" href="http://php.net/manual/en/function.date.php" trans>here</a> for possible formats.
+            <br>
+            <span trans>Preview: </span> <strong>{{ getCurrentDate() | formattedDate:state.client['dates.format'] }}</strong>
+        </p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle [(ngModel)]="state.client['i18n.enable']" name="translations" trans>Translations</mat-slide-toggle>
+        <p trans>Enable translations functionality for the site.</p>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" type="submit" [disabled]="loading" trans>Update</button>
+</form>

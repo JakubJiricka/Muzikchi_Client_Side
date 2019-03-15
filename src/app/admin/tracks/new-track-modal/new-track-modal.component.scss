@@ -1,0 +1,24 @@
+@import "../../../../scss/variables";
+@import "../../../../scss/admin-artist-edit-main-info";
+@import "../../../../scss/admin-artist-edit-inputs";
+
+.new-track-modal-container {
+  width: 650px;
+}
+
+new-track-modal {
+  .admin-artist-edit-inputs > .input-container {
+    > label {
+      width: 150px;
+      flex: 0 0 150px;
+    }
+
+    > p, > .error {
+      margin-left: 160px;
+    }
+  }
+
+  .upload-button {
+    margin-right: auto;
+  }
+}

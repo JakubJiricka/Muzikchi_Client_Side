@@ -1,0 +1,21 @@
+@import "../../../../scss/variables";
+
+crupdate-subscription-modal {
+  display: block;
+
+  .date-picker-input-container {
+    position: relative;
+
+    .mat-datepicker-toggle {
+      position: absolute;
+      top: 25px;
+      right: 0;
+    }
+  }
+
+  .mat-autocomplete-panel .mat-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

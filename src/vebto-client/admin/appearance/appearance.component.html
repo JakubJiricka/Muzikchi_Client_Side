@@ -1,0 +1,37 @@
+<aside class="sidebar">
+    <div class="header">
+        <div class="back-button" (click)="closeEditor()">
+            <svg-icon name="close" class="align-middle"></svg-icon>
+        </div>
+        <div class="title" trans>Appearance Editor</div>
+        <button mat-raised-button color="accent" class="button primary save-button" (click)="appearanceEditor.saveChanges()" [disabled]="appearanceEditor.changes.isEmpty()">
+            <span *ngIf="!appearanceEditor.changes.isEmpty()" trans>Save</span>
+            <span *ngIf="appearanceEditor.changes.isEmpty()" trans>Saved</span>
+        </button>
+    </div>
+
+    <div class="navigation" *ngIf="!appearanceEditor.activePanel">
+        <div class="nav-item" (click)="openPanel(pair.value.name)" *ngFor="let pair of appearanceEditor.config.sections | mapToIterable">
+            <span class="name">{{pair.value.name}}</span>
+            <svg-icon class="arrow-icon" name="keyboard-arrow-right"></svg-icon>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <ng-container *ngFor="let pair of appearanceEditor.config.sections | mapToIterable">
+            <div class="tab general-tab" *ngIf="appearanceEditor.activePanel === pair.value.name && pair.value.fields.length">
+                <appearance-panel [config]="pair.value"></appearance-panel>
+            </div>
+        </ng-container>
+        <div class="tab general-tab" *ngIf="appearanceEditor.activePanel === 'Menus'">
+            <menus-appearance-panel></menus-appearance-panel>
+        </div>
+
+    </div>
+</aside>
+
+<div class="live-preview" #previewContainer>
+    <div class="selected-el-box" #selectedElBox></div>
+</div>
+
+<loading-indicator [isVisible]="appearanceEditor.isLoading" class="overlay"></loading-indicator>

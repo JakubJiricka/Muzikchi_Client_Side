@@ -1,0 +1,79 @@
+@import "../../../scss/variables";
+
+select-plan-panel {
+  display: block;
+
+  .plans {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    &.has-recommended {
+      > .plan {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
+    > .plan {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      align-items: center;
+      max-width: 300px;
+      margin-right: 15px;
+      @include mat-elevation(1);
+      background-color: $site-bg-color-100;
+
+      &.recommended {
+        margin-top: 0;
+        margin-bottom: 0;
+
+        .name {
+          font-size: 2rem;
+        }
+      }
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      > .name {
+        font-size: 1.8rem;
+        font-weight: 500;
+        padding: 15px 0;
+        color: $site-text-color-300;
+        text-transform: capitalize;
+      }
+
+      > .price-box {
+        width: 100%;
+        padding: 25px 0;
+        background-color: $site-accent-color;
+        color: $site-text-color-100;
+        text-align: center;
+
+        > .amount {
+          display: inline-block;
+          position: relative;
+
+          > .number {
+            font-size: 4.5rem;
+          }
+
+          > .currency {
+            position: absolute;
+            top: 10px;
+            left: -15px;
+            font-size: 2rem;
+          }
+        }
+      }
+
+      > .select-plan-button {
+        width: fit-content;
+        margin: 20px 0;
+      }
+    }
+  }
+}

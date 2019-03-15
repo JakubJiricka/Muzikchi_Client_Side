@@ -1,0 +1,29 @@
+<material-navbar></material-navbar>
+
+<mat-horizontal-stepper class="container main-content" [linear]="true">
+    <ng-template matStepperIcon="edit">
+        <svg-icon name="edit" class="size-16"></svg-icon>
+    </ng-template>
+
+    <mat-step label="Subscription plan" [completed]="state.initialPlan">
+        <select-plan-panel (selected)="nextStep()"></select-plan-panel>
+    </mat-step>
+
+    <mat-step label="Subscription interval" [completed]="state.selectedPlan">
+        <select-plan-period-panel [showSidebar]="true" (selected)="nextStep()"></select-plan-period-panel>
+    </mat-step>
+
+    <mat-step label="Payment" [completed]="false">
+        <div class="step-container payment-step">
+            <div class="left-col">
+                <create-subscription-panel [plan]="state.selectedPlan" (loading)="loading = $event" (completed)="onCompleted()"></create-subscription-panel>
+            </div>
+
+            <upgrade-page-aside [plan]="state.selectedPlan" class="right-col"></upgrade-page-aside>
+        </div>
+
+        <p class="legal-info" trans>You authorise {{settings.get('branding.site_name')}} to charge you automatically every month, until you cancel your subscription. You consent to get access to your {{settings.get('branding.site_name')}} subscription immediately, and acknowledge that refunds are only available within 14 days and provided you haven't accessed {{settings.get('branding.site_name')}}. You will be able to cancel your subscription at any time from your profile page.</p>
+    </mat-step>
+</mat-horizontal-stepper>
+
+<loading-indicator class="overlay" [isVisible]="loading"></loading-indicator>

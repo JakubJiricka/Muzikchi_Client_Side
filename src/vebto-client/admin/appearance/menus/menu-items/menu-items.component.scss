@@ -1,0 +1,22 @@
+@import "../../../../scss/variables";
+
+menu-items {
+  display: block;
+
+  > .inner {
+    > .title {
+      margin: 35px 0 5px;
+    }
+
+    > .no-menu-items {
+      font-size: 1.6rem;
+      font-style: italic;
+      color: $site-text-color-300;
+      margin: 10px 0;
+    }
+
+    .action-buttons {
+      margin: 0;
+    }
+  }
+}

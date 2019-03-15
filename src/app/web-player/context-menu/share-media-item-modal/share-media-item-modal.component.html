@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h2 mat-dialog-title><span trans>Share</span>&nbsp;"{{mediaItem.name}}"</h2>
+    <button type="button" mat-dialog-close class="close-button" mat-icon-button tabindex="-1">
+        <svg-icon name="close"></svg-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+    <div class="input-container link-input-container">
+        <label for="media-item-link" class="hidden">Media item link</label>
+        <input type="text" [(ngModel)]="link" (click)="selectLink($event)" id="media-item-link" readonly tabindex="1">
+        <button mat-flat-button color="accent" class="input-addon" (click)="copyLink()" trans>Copy</button>
+    </div>
+
+    <div class="share-icons">
+        <button class="no-style" (click)="shareUsing('facebook')"><img src="{{getShareImage('facebook')}}"></button>
+        <button class="no-style" (click)="shareUsing('twitter')"><img src="{{getShareImage('twitter')}}"></button>
+        <button class="no-style" (click)="shareUsing('google-plus')"><img src="{{getShareImage('google-plus')}}"></button>
+        <button class="no-style" (click)="shareUsing('tumblr')"><img src="{{getShareImage('tumblr')}}"></button>
+        <button class="no-style" (click)="shareUsing('stumbleupon')"><img src="{{getShareImage('stumbleupon')}}"></button>
+        <button class="no-style" (click)="shareUsing('blogger')"><img src="{{getShareImage('bloggr')}}"></button>
+    </div>
+
+    <div class="share-via-email">
+        <div class="title"><span trans>Share</span>&nbsp;<strong>"{{mediaItem.name}}"</strong>&nbsp;<span trans>via email</span></div>
+        <form class="input-container email-address-input" (ngSubmit)="addEmail()" ngNativeValidate>
+            <label for="email-input" class="hidden">Email address</label>
+            <input type="email" [(ngModel)]="email.address" id="email-input" name="email-input" placeholder="+Email address" trans-placeholder>
+        </form>
+        <div class="input-container email-message-input">
+            <label for="email-message" class="hidden">Email message</label>
+            <textarea id="email-message" [(ngModel)]="email.message" rows="10" placeholder="(Optional) Email message" trans-placeholder></textarea>
+        </div>
+        <div class="emails" *ngIf="email.addresses.length">
+            <span class="title" trans>Sharing with:</span>
+            <button class="email no-style" *ngFor="let address of email.addresses" (click)="removeEmail(address)" matTooltip="Remove address">
+                <span>{{address}}</span>
+                <svg-icon name="close"></svg-icon>
+            </button>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-dialog-close type="button" mat-button class="cancel-button" trans>Close</button>
+    <button mat-raised-button color="accent" class="submit-button" (click)="confirm()" [disabled]="loading" trans>Share</button>
+</mat-dialog-actions>

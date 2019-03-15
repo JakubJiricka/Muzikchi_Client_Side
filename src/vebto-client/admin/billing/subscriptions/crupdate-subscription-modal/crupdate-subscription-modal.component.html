@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title *ngIf="updating" trans>Update Subscription Details</h2>
+    <h2 class="modal-title" mat-dialog-title *ngIf="!updating" trans>Create a New Subscription</h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button"><svg-icon name="close"></svg-icon></button>
+</div>
+
+<form autocomplete="off" (ngSubmit)="confirm()" ngNativeValidate>
+    <div class="many-inputs mat-dialog-content" mat-dialog-content>
+
+        <div class="input-container">
+            <label for="user" trans>User</label>
+            <input type="text" id="user" placeholder="Search for user..." [formControl]="userAutocomplete" [matAutocomplete]="auto" required>
+            <div class="error" *ngIf="errors.user_id">{{errors.user_id}}</div>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let user of filteredUsers | async" [value]="user">{{ user.email }}</mat-option>
+            </mat-autocomplete>
+        </div>
+
+        <div class="input-container">
+            <label for="plan" trans>Plan</label>
+            <select name="plan" id="plan" [(ngModel)]="model.plan_id" required>
+                <option [value]="plan.id" *ngFor="let plan of plans">
+                    <full-plan-name [plan]="plan"></full-plan-name>
+                    ({{plan.amount | currency:plan.currency}})
+                </option>
+            </select>
+        </div>
+
+        <div class="input-container">
+            <label for="description" trans>Description</label>
+            <textarea id="description" name="description" [(ngModel)]="model.description"></textarea>
+            <div class="error" *ngIf="errors.description">{{errors.description}}</div>
+        </div>
+
+        <div class="input-container date-picker-input-container">
+            <label for="renews_at" trans>Renews At</label>
+            <input id="renews_at" name="renews_at" [(ngModel)]="model.renews_at" [matDatepicker]="renewsAtDatePicker" [disabled]="model.ends_at" (click)="toggleDatePicker(renewsAtDatePicker)">
+            <mat-datepicker-toggle [for]="renewsAtDatePicker"></mat-datepicker-toggle>
+            <p trans>This will only change local records. User will continue to be billed on their original cycle on the payment gateway.</p>
+            <div class="error" *ngIf="errors.renews_at">{{errors.renews_at}}</div>
+            <mat-datepicker #renewsAtDatePicker></mat-datepicker>
+        </div>
+
+        <div class="input-container date-picker-input-container">
+            <label for="ends_at" trans>Ends At</label>
+            <input id="ends_at" name="ends_at" [(ngModel)]="model.ends_at" [matDatepicker]="endsAtDatePicker" [disabled]="model.renews_at" (click)="toggleDatePicker(endsAtDatePicker)">
+            <p trans>This will only change local records. User will continue to be billed on their original cycle on the payment gateway.</p>
+            <div class="error" *ngIf="errors.ends_at">{{errors.ends_at}}</div>
+            <mat-datepicker-toggle [for]="endsAtDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endsAtDatePicker></mat-datepicker>
+        </div>
+
+        <div class="no-input-error" *ngIf="errors.general">{{errors.general}}</div>
+    </div>
+
+    <div class="buttons right mat-dialog-actions" mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button class="button cancel" trans>Cancel</button>
+        <button type="submit" class="button primary" mat-raised-button color="accent" [disabled]="loading">
+            <span *ngIf="updating" trans>Update Subscription</span>
+            <span *ngIf="!updating" trans>Create Subscription</span>
+        </button>
+    </div>
+</form>
+
+<loading-indicator class="overlay" [isVisible]="loading"></loading-indicator>

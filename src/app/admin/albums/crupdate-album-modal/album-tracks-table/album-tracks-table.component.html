@@ -1,0 +1,41 @@
+<data-table [dataSource]="dataSource" itemsName="tracks" matSort>
+    <button type="button" mat-raised-button color="accent" (click)="openNewTrackModal()" *ngIf="currentUser.hasPermission('tracks.create')" headerActions trans>New Track</button>
+
+    <button type="button" mat-icon-button (click)="maybeDeleteSelectedTracks()" *ngIf="currentUser.hasPermission('tracks.delete')" headerSelectedActions trans>
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let track">{{track.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef trans>Number</mat-header-cell>
+        <mat-cell *matCellDef="let track">{{track.number}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="artists">
+        <mat-header-cell *matHeaderCellDef trans>Artists</mat-header-cell>
+        <mat-cell *matCellDef="let track">{{track.artists ? track.artists.join(', ') : '-'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="duration">
+        <mat-header-cell *matHeaderCellDef trans>Duration</mat-header-cell>
+        <mat-cell *matCellDef="let track">{{formatTrackDuration(track)}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let track">
+            <button type="button" mat-icon-button matTooltip="Edit track" (click)="openEditTrackModal(track)">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <no-results-message>
+        <span primary-text trans>Nothing To Display.</span>
+        <span secondary-text trans>No tracks have been attached to this album yet.</span>
+    </no-results-message>
+</data-table>

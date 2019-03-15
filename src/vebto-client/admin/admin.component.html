@@ -1,0 +1,70 @@
+<material-navbar menuPosition="admin" [showToggleButton]="true" (toggleButtonClick)="toggleLeftSidebar()"></material-navbar>
+
+<mat-sidenav-container class="content">
+    <mat-sidenav [opened]="!leftColumnIsHidden" mode="side" class="left-column">
+        <div class="menu-items">
+            <a class="menu-item" routerLink="analytics" *ngIf="currentUser.hasPermission('reports.view')" routerLinkActive="router-link-active">
+                <svg-icon name="pie-chart"></svg-icon>
+                <span trans>Analytics</span>
+            </a>
+            <a class="menu-item" routerLink="appearance" *ngIf="currentUser.hasPermission('appearance.update')" routerLinkActive="router-link-active">
+                <svg-icon name="style"></svg-icon>
+                <span trans>Appearance</span>
+            </a>
+            <a class="menu-item" routerLink="settings" *ngIf="currentUser.hasPermission('settings.view')" routerLinkActive="router-link-active">
+                <svg-icon name="settings"></svg-icon>
+                <span trans>Settings</span>
+            </a>
+
+            <ng-container *ngIf="settings.get('billing.enable')">
+                <a class="menu-item" routerLink="plans" *ngIf="currentUser.hasPermission('plans.view')" routerLinkActive="router-link-active">
+                    <svg-icon name="assignment"></svg-icon>
+                    <span trans>Plans</span>
+                </a>
+                <a class="menu-item" routerLink="subscriptions" *ngIf="currentUser.hasPermission('subscriptions.view')" routerLinkActive="router-link-active">
+                    <svg-icon name="subscriptions"></svg-icon>
+                    <span trans>Subscriptions</span>
+                </a>
+            </ng-container>
+
+            <ng-container *ngFor="let item of getCustomSidebarItems()">
+                <a class="menu-item" [routerLink]="item.route" *ngIf="currentUser.hasPermission(item.permission)" routerLinkActive="router-link-active">
+                    <svg-icon [name]="item.icon"></svg-icon>
+                    <span trans>{{item.name}}</span>
+                </a>
+            </ng-container>
+
+            <a class="menu-item" routerLink="users" *ngIf="currentUser.hasPermission('users.view')" routerLinkActive="router-link-active">
+                <svg-icon name="person"></svg-icon>
+                <span trans>Users</span>
+            </a>
+            <a class="menu-item" routerLink="groups" *ngIf="currentUser.hasPermission('groups.view')" routerLinkActive="router-link-active">
+                <svg-icon name="people"></svg-icon>
+                <span trans>Groups</span>
+            </a>
+            <a class="menu-item" routerLink="pages" *ngIf="currentUser.hasPermission('pages.view')" routerLinkActive="router-link-active">
+                <svg-icon name="insert-drive-file"></svg-icon>
+                <span trans>Pages</span>
+            </a>
+            <a class="menu-item" routerLink="translations" *ngIf="currentUser.hasPermission('localizations.view')" routerLinkActive="router-link-active">
+                <svg-icon name="translate"></svg-icon>
+                <span trans>Translations</span>
+            </a>
+            <a class="menu-item" routerLink="mail-templates" *ngIf="currentUser.hasPermission('mail_templates.view')" routerLinkActive="router-link-active">
+                <svg-icon name="mail"></svg-icon>
+                <span trans>Mail Templates</span>
+            </a>
+            <a class="menu-item" routerLink="ads" *ngIf="currentUser.hasPermission('settings.view')" routerLinkActive="router-link-active">
+                <svg-icon name="ads-custom"></svg-icon>
+                <span trans>Ads</span>
+            </a>
+        </div>
+        <div class="version">
+            Version: {{settings.get('version')}}
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="content-inner">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

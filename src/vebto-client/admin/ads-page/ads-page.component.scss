@@ -1,0 +1,41 @@
+@import "../../scss/variables";
+
+ads-page {
+  display: block;
+  width: 100%;
+  padding: 25px;
+
+  .panel {
+    border: 1px solid $site-border-color-200;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: $admin-table-background-color;
+
+    > .header {
+      background-color: $site-bg-color-200;
+      border-bottom: 1px solid $site-border-color-200;
+      padding: 15px;
+      margin-bottom: 15px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    > .input-container {
+      margin-right: 15px;
+      margin-left: 15px;
+
+      > textarea {
+        max-width: 750px;
+        height: 150px;
+      }
+    }
+
+    > .setting-toggle-container {
+      margin-left: 15px;
+    }
+
+    > .save-button {
+      margin: 0 0 30px 15px;
+    }
+  }
+}

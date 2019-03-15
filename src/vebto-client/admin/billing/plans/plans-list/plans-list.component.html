@@ -1,0 +1,104 @@
+<div class="admin-table-panel">
+    <div class="admin-table-panel-header">
+        <div class="header-inner default" *ngIf="dataSource.selectedRows.isEmpty()">
+            <div class="left">
+                <button mat-raised-button color="accent" [disabled]="loading" (click)="showCrupdatePlanModal()" *ngIf="currentUser.hasPermission('plans.create')" trans>Add</button>
+                <button mat-button [disabled]="loading" (click)="syncPlans()" *ngIf="currentUser.hasPermission('plans.create')" trans>Sync</button>
+            </div>
+
+            <div class="right">
+                <div class="input-container">
+                    <input type="text" class="search" placeholder="Search plans" trans-placeholder [formControl]="dataSource.searchQuery">
+                    <svg-icon name="search"></svg-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-inner selected" *ngIf="dataSource.selectedRows.hasValue()">
+            <div class="left">{{dataSource.selectedRows.selected.length}} <span trans>Plans Selected</span></div>
+            <div class="right">
+                <button mat-icon-button matmatTooltip="Delete selected" (click)="maybeDeleteSelectedPlans()" *ngIf="currentUser.hasPermission('plans.delete')">
+                    <svg-icon name="delete"></svg-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? dataSource.masterToggle() : null"
+                              [checked]="dataSource.selectedRows.hasValue() && dataSource.allRowsSelected()"
+                              [indeterminate]="dataSource.selectedRows.hasValue() && !dataSource.allRowsSelected()">
+                </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? dataSource.selectedRows.toggle(row) : null"
+                              [checked]="dataSource.selectedRows.isSelected(row)">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+            <mat-cell *matCellDef="let plan"> {{plan.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="parent">
+            <mat-header-cell *matHeaderCellDef trans>Parent Plan</mat-header-cell>
+            <mat-cell *matCellDef="let plan"> {{plan.parent ? plan.parent.name : '-'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Amount</mat-header-cell>
+            <mat-cell *matCellDef="let plan"> {{plan.free ? 'Free' : (plan.amount | currency:plan.currency)}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="currency">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Currency</mat-header-cell>
+            <mat-cell *matCellDef="let plan"> {{plan.free ? 'Free' : plan.currency}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="interval">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Interval</mat-header-cell>
+            <mat-cell *matCellDef="let plan"> {{plan.free ? 'Free' : plan.interval}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="recommended">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Recommended</mat-header-cell>
+            <mat-cell *matCellDef="let plan"> {{plan.parent_id ? '-' : (plan.recommended ? 'Yes' : 'No') }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="position">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Position</mat-header-cell>
+            <mat-cell *matCellDef="let plan"> {{plan.parent_id ? '-' : plan.position}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="created_at">
+            <mat-header-cell *matHeaderCellDef trans>Created At</mat-header-cell>
+            <mat-cell *matCellDef="let plan"> {{plan.created_at | formattedDate}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let plan">
+                <button mat-icon-button (click)="showCrupdatePlanModal(plan)" *ngIf="currentUser.hasPermission('plans.update')" matmatTooltip="Edit plan">
+                    <svg-icon name="edit"></svg-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['select', 'name', 'parent', 'amount', 'currency', 'interval', 'recommended', 'position', 'created_at', 'edit']"></mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: ['select', 'name', 'parent', 'amount', 'currency', 'interval', 'recommended', 'position', 'created_at', 'edit']"></mat-row>
+    </mat-table>
+
+    <no-results-message *ngIf="dataSource.isEmpty()">
+        <span primary-text trans>Nothing to Display.</span>
+        <span secondary-text trans>Seems like no plans have been created yet.</span>
+    </no-results-message>
+
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+
+    <loading-indicator class="overlay" [isVisible]="loading"></loading-indicator>
+</div>

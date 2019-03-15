@@ -1,0 +1,18 @@
+@import "../../../scss/variables";
+
+select-groups-modal {
+  display: block;
+
+  .groups {
+    text-transform: capitalize;
+
+    .mat-checkbox {
+      display: block;
+      margin-bottom: 7px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

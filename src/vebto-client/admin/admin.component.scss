@@ -1,0 +1,73 @@
+@import "../../scss/variables";
+@import "../scss/admin-pill-nav";
+@import "../scss/setting-checkbox";
+@import "../scss/flex-table-panel";
+@import '~@angular/material/theming';
+
+admin {
+  height: 100%;
+  background-color: $admin-background-color;
+
+  > .content {
+    height: calc(100% - #{$admin-nav-height+1});
+
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      width: $admin-left-col-width;
+      flex: 0 0 $admin-left-col-width;
+      background-color: $admin-left-col-background-color;
+      height: 100%;
+      color: $admin-left-col-text-color;
+      box-shadow: $box-shadow-2;
+      overflow: auto;
+
+      > .menu-items {
+        width: 100%;
+
+        > .menu-item {
+          display: block;
+          width: 100%;
+          padding: 15px 10px 15px 25px;
+          border-left: 5px solid transparent;
+          border-bottom: 1px solid $admin-left-col-border-color;
+          font-size: 1.54rem;
+          font-weight: 400;
+          color: $admin-left-col-text-color;
+          text-transform: capitalize;
+
+          > svg-icon {
+            position: relative;
+            vertical-align: middle;
+            margin-right: 10px;
+            top: -1px;
+            width: 20px;
+            height: 20px;
+          }
+
+          &:hover {
+            background-color: $admin-left-col-active-color;
+          }
+
+          &.router-link-active {
+            background-color: $admin-left-col-active-color;
+            border-left-color: $site-accent-color;
+          }
+        }
+      }
+
+      > .version {
+        margin-top: auto;
+        padding: 5px 8px;
+        font-size: 1.3rem;
+      }
+    }
+
+    .content-inner {
+      height: 100%;
+      flex: 1 1 auto;
+      overflow: auto;
+      background-color: $site-bg-color-200;
+    }
+  }
+}

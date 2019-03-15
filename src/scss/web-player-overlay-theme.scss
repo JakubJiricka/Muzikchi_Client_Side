@@ -1,0 +1,74 @@
+@import "variables";
+
+.web-player-theme {
+  .mat-menu-panel {
+    background-color: $wp-bg-color-400;
+
+    .mat-menu-item {
+      color: $wp-text-color-200;
+
+      .mat-icon {
+        color: $wp-text-color-200;
+      }
+    }
+  }
+
+  .mat-dialog-container {
+    background-color: darken($wp-bg-color-400, 3%);
+    color: $wp-text-color-200;
+
+    .modal-header {
+      color: inherit;
+    }
+
+    .close-button {
+      color: inherit;
+    }
+
+    .input-container {
+      > input, select, textarea {
+        background-color: $wp-bg-color-400;
+        border-color: $wp-border-color-200;
+      }
+
+      p {
+        color: $wp-text-color-300;
+      }
+    }
+  }
+
+  upload-file-modal .upload-panel {
+    > .tabs .dropzone {
+      background-color: $wp-bg-color-400;
+      border-color: $wp-border-color-200;
+
+      &:hover {
+        background-color: $wp-bg-color-300;
+      }
+    }
+
+    .menu .menu-item {
+      color: inherit;
+    }
+  }
+
+  .mat-tooltip-panel .mat-tooltip {
+    background-color: $wp-bg-color-300;
+  }
+}
+
+web-player {
+  loading-indicator.overlay {
+    .spinner > div {
+      background-color: $site-accent-color;
+    }
+  }
+}
+
+.auth-page loading-indicator.overlay {
+  background-color: rgba(0,0,0,0.2);
+
+  .spinner > div {
+    background-color: $site-accent-color;
+  }
+}

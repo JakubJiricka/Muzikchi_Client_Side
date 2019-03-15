@@ -1,0 +1,8 @@
+<button mat-icon-button (click)="library.add(track)" *ngIf="!library.has(track)">
+    <svg-icon name="add"></svg-icon>
+</button>
+
+<button class="remove-button" mat-icon-button (click)="library.remove(track)" *ngIf="library.has(track)">
+    <svg-icon name="check" class="check-icon"></svg-icon>
+    <svg-icon name="clear" class="remove-icon"></svg-icon>
+</button>

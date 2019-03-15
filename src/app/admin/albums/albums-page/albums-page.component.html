@@ -1,0 +1,54 @@
+<data-table [dataSource]="dataSource" itemsName="albums" matSort>
+    <button mat-raised-button color="accent" (click)="openCrupdateAlbumModal()" *ngIf="currentUser.hasPermission('albums.create')" headerActions trans>Add</button>
+
+    <button mat-icon-button (click)="maybeDeleteSelectedAlbums()" *ngIf="currentUser.hasPermission('albums.delete')" headerSelectedActions trans>
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef trans>Image</mat-header-cell>
+        <mat-cell *matCellDef="let album"><img [src]="getAlbumImage(album)"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="artist">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="artist_id" trans>Artist</mat-header-cell>
+        <mat-cell *matCellDef="let album">
+            <a *ngIf="album.artist" target="_blank" [routerLink]="urls.artist(album.artist)">{{album.artist.name}}</a>
+            <span *ngIf="!album.artist">-</span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="release_date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Release Date</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.release_date ? album.release_date: '&ndash;'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="popularity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Popularity</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.spotify_popularity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="number_of_tracks">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Number of Tracks</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.tracks ? album.tracks.length: '&ndash;'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="views">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Views</mat-header-cell>
+        <mat-cell *matCellDef="let album"> {{album.views ? album.views : '&ndash;'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let album">
+            <button mat-icon-button (click)="openCrupdateAlbumModal(album)" *ngIf="currentUser.hasPermission('albums.update')" matTooltip="Edit album">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

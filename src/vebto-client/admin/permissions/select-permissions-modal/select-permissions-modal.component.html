@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h2 class="modal-title mat-dialog-title" mat-dialog-title trans>Select Permissions</h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button">
+        <svg-icon name="close"></svg-icon>
+    </button>
+</div>
+
+<mat-dialog-content customScrollbar>
+    <mat-accordion>
+        <mat-expansion-panel class="mat-elevation-z2" *ngFor="let group of data.allPermissions | mapToIterable">
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{group.key}}</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-selection-list (selectionChange)="toggleSelectedPermission($event)">
+                <mat-list-option
+                        *ngFor="let permission of group.value"
+                        [value]="permission.name"
+                        [disabled]="isPermissionDisabled(permission.name)"
+                        [selected]="isPermissionSelected(permission.name)"
+                >
+                    <p matLine>{{permission.name}}</p>
+                    <p *ngIf="permission.description" matLine>{{permission.description}}</p>
+                </mat-list-option>
+            </mat-selection-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-dialog-content>
+
+<div class="buttons right mat-dialog-actions" mat-dialog-actions>
+    <button (click)="close()" mat-button type="button" class="button cancel" trans>Cancel</button>
+    <button type="submit" mat-raised-button color="accent" class="button primary submit-button" (click)="confirm()" trans>Select</button>
+</div>

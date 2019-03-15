@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h2 mat-dialog-title>
+        <span *ngIf="!model.id" trans>New Playlist</span>
+        <span *ngIf="model.id" trans>Update Playlist</span>
+    </h2>
+    <button type="button" (click)="close()" class="close-button" mat-icon-button tabindex="-1">
+        <svg-icon name="close"></svg-icon>
+    </button>
+</div>
+
+<form (ngSubmit)="confirm()" ngNativeValidate>
+   <mat-dialog-content customScrollbar>
+       <div class="img-container">
+           <img [src]="model.image">
+           <button class="no-style upload-img-button" type="button" (click)="openImageUploadModal()">
+               <svg-icon name="add-a-photo"></svg-icon>
+           </button>
+       </div>
+
+       <div class="many-inputs">
+           <div class="input-container name-input">
+               <label for="playlist-name" trans>Playlist Name</label>
+               <input type="text" [(ngModel)]="model.name" id="playlist-name" name="name" required min="1" max="250">
+               <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+           </div>
+
+           <div class="input-container description-input">
+               <label for="playlist-description" trans>Playlist Description</label>
+               <textarea [(ngModel)]="model.description" id="playlist-description" name="description" placeholder="Give your playlist a catchy description." trans-placeholder></textarea>
+               <div class="error" *ngIf="errors.description">{{errors.description}}</div>
+           </div>
+
+           <mat-checkbox name="visibility" id="playlist-visibility" [(ngModel)]="model.public" trans>Public</mat-checkbox>
+       </div>
+   </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" class="cancel-button" mat-button trans>Close</button>
+        <button type="submit" class="submit-button" mat-raised-button color="accent" [disabled]="loading">
+            <span *ngIf="!model.id" trans>Create</span>
+            <span *ngIf="model.id" trans>Update</span>
+        </button>
+    </mat-dialog-actions>
+</form>

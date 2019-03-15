@@ -1,0 +1,55 @@
+<form class="auth-page" id="auth-page" (ngSubmit)="login()" ngNativeValidate>
+    <div class="many-inputs auth-panel">
+        <loading-indicator class="overlay" [isVisible]="isLoading"></loading-indicator>
+
+        <a class="logo" [routerLink]="['/']"><img [src]="settings.get('branding.logo_dark')" alt="logo"></a>
+
+        <div class="general-error" *ngIf="errors.general">{{errors.general}}</div>
+
+        <div class="input-container">
+            <label for="email" class="hidden"></label>
+            <input type="email" [(ngModel)]="model.email" name="email" id="email" required placeholder="Email">
+            <p class="error email-error" *ngIf="errors.email">{{errors.email}}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="password" class="hidden"></label>
+            <input type="password" [(ngModel)]="model.password" name="password" id="password" required placeholder="Password">
+            <a class="forgot-password" [routerLink]="['/forgot-password']" trans>Forgot?</a>
+            <p class="error password-error" *ngIf="errors.password">{{errors.password}}</p>
+        </div>
+
+        <div class="remember-and-login-row">
+            <div class="remember-me-checkbox">
+                <mat-checkbox name="remember-me" [(ngModel)]="model.remember" trans>Remember Me</mat-checkbox>
+            </div>
+
+            <div class="login-button">
+                <button mat-raised-button color="accent" type="submit" trans>Login</button>
+            </div>
+        </div>
+
+        <ng-container *ngIf="!settings.get('registration.disable')">
+            <p class="info-row">
+                <span class="color-secondary" trans>Don't have an account?</span>
+                <a class="register-link" [routerLink]="['/register']" trans>Register here.</a>
+            </p>
+
+            <div class="social-icons center">
+                <button type="button" mat-icon-button (click)="socialAuth.loginWith('facebook')" *ngIf="settings.get('social.facebook.enable')" class="social-icon no-style facebook" matTooltip="Login with facebook">
+                    <svg-icon name="facebook-custom"></svg-icon>
+                </button>
+                <button type="button" mat-icon-button (click)="socialAuth.loginWith('google')" *ngIf="settings.get('social.google.enable')" class="social-icon no-style google" matTooltip="Login with google">
+                    <svg-icon name="google-custom"></svg-icon>
+                </button>
+                <button type="button" mat-icon-button (click)="socialAuth.loginWith('twitter')" *ngIf="settings.get('social.twitter.enable')" class="social-icon no-style twitter" matTooltip="Login with twitter">
+                    <svg-icon name="twitter-custom"></svg-icon>
+                </button>
+            </div>
+        </ng-container>
+    </div>
+</form>
+<menubar *ngIf="state.isMobile"></menubar>
+
+
+

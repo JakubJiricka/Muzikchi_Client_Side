@@ -1,0 +1,23 @@
+@import "variables";
+
+button.no-style {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  border-radius: 0;
+  min-width: initial;
+  -webkit-user-select: none; /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  outline: none;
+  cursor: pointer;
+}
+
+button > svg-icon {
+  display: block;
+  pointer-events: none; /* fix edge click on svg icon bug */
+}

@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h2 class="modal-title mat-dialog-title" mat-dialog-title trans>Select Groups</h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button"><svg-icon name="close"></svg-icon></button>
+</div>
+
+<form (ngSubmit)="confirm()" ngNativeValidate>
+    <div class="mat-dialog-content" mat-dialog-content>
+        <mat-selection-list (selectionChange)="toggleSelectedGroup($event)">
+            <ng-container *ngFor="let group of groups">
+                <mat-list-option
+                        *ngIf="!group.guests"
+                        [value]="group.id"
+                        [disabled]="isGroupDisabled(group.id)"
+                        [selected]="isGroupSelected(group.id)"
+                >{{group.name}}</mat-list-option>
+            </ng-container>
+        </mat-selection-list>
+    </div>
+
+    <div class="buttons right mat-dialog-actions" mat-dialog-actions>
+        <button (click)="close()" mat-button type="button" class="button cancel" trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" class="button primary submit-button" trans>Select</button>
+    </div>
+</form>

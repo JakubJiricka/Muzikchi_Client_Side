@@ -1,0 +1,9 @@
+<button class="no-style header-content" [matMenuTriggerFor]="matMenu">
+    <span trans>Sorted by</span>
+    <span class="current-order">{{name}}</span>
+    <svg-icon name="sort"></svg-icon>
+</button>
+
+<mat-menu #matMenu="matMenu" xPosition="before" [overlapTrigger]="false">
+    <ng-content></ng-content>
+</mat-menu>

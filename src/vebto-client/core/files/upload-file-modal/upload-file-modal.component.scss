@@ -1,0 +1,72 @@
+@import "../../../scss/variables";
+
+upload-file-modal {
+  display: block;
+
+  .upload-panel {
+    > .menu {
+      display: flex;
+      margin-bottom: 15px;
+
+      > .menu-item {
+        border-bottom: 2px solid transparent;
+        padding: 10px 15px;
+        font-size: 1.6rem;
+        color: $site-text-color-300;
+
+        &.active {
+          border-color: $site-accent-color;
+          color: $site-accent-color;
+        }
+      }
+    }
+
+    > .tabs {
+      margin-top: 20px;
+
+      .dropzone {
+        min-height: 300px;
+        width: 100%;
+        border: 3px dashed $site-border-color-200;
+        background-color: $site-bg-color-200;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        cursor: pointer;
+        font-weight: 300;
+        padding: 0 15px;
+
+        @-webkit-keyframes pulsate {
+          0% {opacity: 0.2;}
+          50% {opacity: 1.0;}
+          100% {opacity: 0.2;}
+        }
+
+        &.file-over-dropzone {
+          background-color: darken($site-bg-color-200, 2%);
+          border-color: darken($site-border-color-200, 5%);
+          -webkit-animation: pulsate 2.5s ease-out;
+          -webkit-animation-iteration-count: infinite;
+        }
+
+        &:hover {
+          background-color: darken($site-bg-color-200, 2%);
+          border-color: darken($site-border-color-200, 5%);
+        }
+      }
+
+      > .link {
+        p {
+          text-align: center;
+          font-size: 1.5rem;
+          margin-top: 20px;
+        }
+      }
+    }
+
+    > .errors {
+      margin-top: 10px;
+    }
+  }
+}

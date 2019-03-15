@@ -1,0 +1,20 @@
+@import "../../../scss/variables";
+
+.code-editor-modal-container {
+  width: 800px;
+}
+
+code-editor-modal {
+  display: block;
+
+  .modal-header {
+    margin: 0 0 15px;
+  }
+
+  .editor {
+    min-height: 550px;
+    border: 1px solid $site-border-color-200;
+    font-size: 1.4rem;
+  }
+}
+

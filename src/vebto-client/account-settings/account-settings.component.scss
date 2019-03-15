@@ -1,0 +1,175 @@
+@import "../../scss/variables";
+
+account-settings {
+  display: block;
+  height: 100%;
+  width: 100%;
+  flex: 1 1 auto;
+  background-color: $acc-page-bg-color;
+
+  > .scroll-container {
+    height: 100%;
+    position: relative;
+    overflow: auto;
+  }
+
+  .content {
+    height: 100%;
+    margin: $acc-page-margin;
+
+  > .header {
+    font-size: 3.5rem;
+    margin: 25px 0;
+    font-weight: 300;
+  }
+
+    .panels {
+      display: flex;
+      flex-wrap: wrap;
+      margin: -15px;
+    }
+
+    .panel {
+      box-shadow: none;
+      border: 1px solid $acc-page-border-color;
+      width: calc(50% - 30px);
+      margin: 15px;
+      padding: 15px;
+      background-color: $acc-page-panel-bg-color;
+
+      &.social-login-panel {
+        .info {
+          margin-bottom: 35px;
+        }
+      }
+
+      .panel-header {
+        background-color: transparent;
+        font-size: 1.8rem;
+        font-weight: 300;
+        padding: 0 0 10px 0;
+        border-bottom: 1px solid $acc-page-border-color;
+      }
+
+      .panel-body {
+        padding: 25px 0 0;
+        min-height: 268px;
+      }
+
+      .panel-footer {
+        padding: 10px 0 0 0;
+        margin-top: 35px;
+        border-top: 1px solid $acc-page-border-color;
+        text-align: right;
+      }
+
+      .input-inline {
+        display: flex;
+        margin-bottom: 26px;
+        align-items: center;
+        position: relative;
+
+        > label {
+          flex: 0 0 30%;
+          min-width: 200px;
+          line-height: 42px;
+          vertical-align: middle;
+        }
+
+        > input, select {
+          flex: 1 1 auto;
+          height: 48px;
+          border-radius: 3px;
+          border-color: $acc-page-border-color;
+          background-color: $acc-page-input-bg-color;
+        }
+
+        > .error {
+          color: $danger-bg-color;
+          font-size: 1.3rem;
+          position: absolute;
+          bottom: -20px;
+          right: 0;
+        }
+      }
+
+      .avatar-input {
+        display: flex;
+        flex-wrap: wrap;
+
+        > img {
+          flex: 0 0 90px;
+          width: 90px;
+          height: 90px;
+          object-fit: cover;
+          margin-right: 15px;
+        }
+
+        > .avatar-actions-container {
+          flex: 1 1 auto;
+          max-width: 130px;
+
+          > .info {
+            padding-top: 5px;
+            color: $acc-page-secondary-text-color;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+          }
+
+          > button {
+            display: block;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+
+    .logout-button-container {
+      padding: 20px 0 15px;
+      display: none;
+
+      .logout-button > svg-icon {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    @media only screen and (max-width: $laptop) {
+      .panel .input-inline {
+        display: block;
+
+        > label {
+          line-height: initial;
+        }
+      }
+    }
+
+    @media only screen and (max-width: $tablet) {
+      .logout-button-container {
+        display: block;
+      }
+      
+      .panels {
+        display: block;
+
+        .panel {
+          width: auto;
+        }
+
+        .input-inline {
+          display: block;
+
+          > input, > select {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    @media only screen and (max-width: 375px) {
+      .social-account-username {
+        display: none;
+      }
+    }
+  }
+}

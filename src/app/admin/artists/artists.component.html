@@ -1,0 +1,46 @@
+<data-table [dataSource]="dataSource" itemsName="artists" matSort>
+    <a mat-raised-button color="accent" routerLink="new" *ngIf="currentUser.hasPermission('artists.create')" headerActions trans>Add</a>
+
+    <button mat-icon-button matTooltip="Delete selected" (click)="maybeDeleteSelectedArtists()" headerSelectedActions *ngIf="currentUser.hasPermission('artists.delete')">
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef trans>Image</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> <img [src]="artist.image_small"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> {{artist.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="popularity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="spotify_popularity" trans>Popularity</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> {{artist.spotify_popularity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="number_of_albums">
+        <mat-header-cell *matHeaderCellDef trans>Number of Albums</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> {{artist['albums_count']}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="views">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Page Views</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> {{artist.views}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Created At</mat-header-cell>
+        <mat-cell *matCellDef="let artist"> {{artist.created_at | formattedDate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let artist">
+            <a mat-icon-button [routerLink]="[artist.id, 'edit']" *ngIf="currentUser.hasPermission('artists.update')" matTooltip="Edit artist">
+                <svg-icon name="edit"></svg-icon>
+            </a>
+        </mat-cell>
+    </ng-container>
+</data-table>

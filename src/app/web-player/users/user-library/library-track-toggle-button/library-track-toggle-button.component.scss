@@ -1,0 +1,23 @@
+@import "../../../../../scss/variables";
+
+library-track-toggle-button {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  text-align: center;
+
+  .remove-icon {
+    display: none;
+  }
+
+  .remove-button:hover {
+    .check-icon {
+      display: none;
+    }
+
+    .remove-icon {
+      display: inline-block;
+    }
+  }
+}

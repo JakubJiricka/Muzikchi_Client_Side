@@ -1,0 +1,49 @@
+@import "../../scss/variables";
+
+upgrade-page {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: $site-bg-color-200;
+  overflow: auto;
+
+  .main-content {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: inherit;
+  }
+
+  .mat-horizontal-stepper-content {
+    padding: 5px;
+    margin-top: 25px;
+
+    &[aria-expanded=false] {
+      padding: 0;
+      margin: 0;
+    }
+  }
+  
+  .step-container {
+    display: flex;
+    position: relative;
+    background-color: $site-bg-color-100;
+    border-radius: 3px;
+    @include mat-elevation(1);
+
+    > .left-col {
+      flex: 1 1 auto;
+    }
+  }
+
+  select-plan-period-panel .left-col {
+    padding: 30px;
+  }
+
+  .payment-step {
+    .legal-info {
+      margin-top: 20px;
+      color: $site-text-color-300;
+    }
+  }
+}
+

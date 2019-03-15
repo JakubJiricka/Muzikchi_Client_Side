@@ -1,0 +1,100 @@
+<div class="admin-table-panel">
+    <div class="admin-table-panel-header">
+        <div class="header-inner default" *ngIf="dataSource.selectedRows.isEmpty()">
+            <div class="left">
+                <button mat-raised-button color="accent" [disabled]="loading" (click)="openCrupdateSubscriptionModal()" *ngIf="currentUser.hasPermission('subscriptions.create')" trans>Add</button>
+            </div>
+
+            <div class="right">
+                <div class="input-container">
+                    <input type="text" class="search" placeholder="Search subscriptions" trans-placeholder [formControl]="dataSource.searchQuery">
+                    <svg-icon name="search"></svg-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-inner selected" *ngIf="dataSource.selectedRows.hasValue()">
+            <div class="left">{{dataSource.selectedRows.selected.length}} <span trans>Plans Selected</span></div>
+        </div>
+    </div>
+
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? dataSource.masterToggle() : null"
+                              [checked]="dataSource.selectedRows.hasValue() && dataSource.allRowsSelected()"
+                              [indeterminate]="dataSource.selectedRows.hasValue() && !dataSource.allRowsSelected()">
+                </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? dataSource.selectedRows.toggle(row) : null"
+                              [checked]="dataSource.selectedRows.isSelected(row)">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="avatar">
+            <mat-header-cell *matHeaderCellDef trans>Avatar</mat-header-cell>
+            <mat-cell *matCellDef="let subscription"> <img [src]="subscription.user.avatar"> </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="user">
+            <mat-header-cell *matHeaderCellDef trans>User</mat-header-cell>
+            <mat-cell *matCellDef="let subscription"> {{subscription.user.email}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="gateway">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Gateway</mat-header-cell>
+            <mat-cell *matCellDef="let subscription"> {{subscription.gateway}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="cancelled">
+            <mat-header-cell *matHeaderCellDef trans>Cancelled</mat-header-cell>
+            <mat-cell *matCellDef="let subscription"> {{subscription.cancelled ? 'Yes' : 'No' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="on_grace_period">
+            <mat-header-cell *matHeaderCellDef trans>On Grace Period</mat-header-cell>
+            <mat-cell *matCellDef="let subscription"> {{subscription.on_grace_period ? 'Yes' : 'No' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="renews_at">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Renews At</mat-header-cell>
+            <mat-cell *matCellDef="let subscription"> {{subscription.renews_at ? (subscription.renews_at | formattedDate) : '-'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ends_at">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Ends At</mat-header-cell>
+            <mat-cell *matCellDef="let subscription"> {{subscription.ends_at ? (subscription.ends_at | formattedDate) : '-'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="created_at">
+            <mat-header-cell *matHeaderCellDef mat-sort-header trans>Created At</mat-header-cell>
+            <mat-cell *matCellDef="let subscription"> {{subscription.created_at | formattedDate}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let subscription">
+                <ng-container *ngIf="currentUser.hasPermission('subscriptions.delete')">
+                    <button mat-icon-button (click)="openCrupdateSubscriptionModal(subscription)" matmatTooltip="Edit"><svg-icon name="edit"></svg-icon></button>
+                    <button mat-icon-button (click)="maybeCancelSubscription(subscription)" matmatTooltip="Cancel/Suspend"><svg-icon name="pause"></svg-icon></button>
+                    <button mat-icon-button (click)="maybeDeleteSubscription(subscription)" matmatTooltip="Delete"><svg-icon name="delete"></svg-icon></button>
+                </ng-container>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['select', 'avatar', 'user', 'gateway', 'cancelled', 'on_grace_period', 'renews_at', 'ends_at', 'created_at', 'edit']"></mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: ['select', 'avatar', 'user', 'gateway', 'cancelled', 'on_grace_period', 'renews_at', 'ends_at', 'created_at', 'edit']"></mat-row>
+    </mat-table>
+
+    <no-results-message *ngIf="dataSource.isEmpty()">
+        <span primary-text trans>Nothing to Display.</span>
+        <span secondary-text trans>Seems like no subscriptions exist on the site yet.</span>
+    </no-results-message>
+
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+
+    <loading-indicator class="overlay" [isVisible]="loading"></loading-indicator>
+</div>

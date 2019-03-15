@@ -1,0 +1,41 @@
+<data-table [dataSource]="dataSource" itemsName="albums" matSort>
+    <button mat-raised-button color="accent" (click)="openNewAlbumModal()" *ngIf="currentUser.hasPermission('albums.create')" headerActions trans>New Album</button>
+
+    <button mat-icon-button (click)="maybeDeleteSelectedAlbums()" *ngIf="currentUser.hasPermission('albums.delete')" headerSelectedActions trans>
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef trans>Image</mat-header-cell>
+        <mat-cell *matCellDef="let album"><img [src]="images.getAlbumImage(album)"></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let album">{{album.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="release_date">
+        <mat-header-cell *matHeaderCellDef trans>Release Date</mat-header-cell>
+        <mat-cell *matCellDef="let album">{{album.release_date}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="popularity">
+        <mat-header-cell *matHeaderCellDef trans>Popularity</mat-header-cell>
+        <mat-cell *matCellDef="let album">{{album.spotify_popularity}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="number_of_tracks">
+        <mat-header-cell *matHeaderCellDef trans>Number of Tracks</mat-header-cell>
+        <mat-cell *matCellDef="let album">{{album.tracks.length}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let album">
+            <button type="button" mat-icon-button matTooltip="Edit album" (click)="openEditAlbumModal(album)">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

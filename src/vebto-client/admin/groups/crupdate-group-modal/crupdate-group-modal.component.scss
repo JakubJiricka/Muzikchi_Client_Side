@@ -1,0 +1,14 @@
+@import "../../../scss/variables";
+
+crupdate-group-modal {
+  display: block;
+
+  .setting-container {
+    margin-bottom: 25px;
+
+    > p {
+      color: $site-text-color-300;
+      margin: 5px 0;
+    }
+  }
+}

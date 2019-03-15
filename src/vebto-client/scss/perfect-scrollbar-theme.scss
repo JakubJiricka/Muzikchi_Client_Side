@@ -1,0 +1,11 @@
+@import "_variables";
+
+//always should horizontal scrollbar
+.ps {
+  position: relative;
+
+  > .ps__rail-x {
+    opacity: 0.6;
+  }
+}
+

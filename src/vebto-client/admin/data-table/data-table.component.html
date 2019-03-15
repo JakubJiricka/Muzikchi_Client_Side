@@ -1,0 +1,50 @@
+<div class="admin-table-panel">
+    <div class="admin-table-panel-header">
+        <div class="header-inner default" [class.hidden]="dataSource.anyRowsSelected() && selectedActions.children.length">
+            <div class="left"><ng-content select="[headerActions]"></ng-content></div>
+
+            <div class="right">
+                <div class="input-container">
+                    <input type="text" class="search" placeholder="Search {{itemsName}}" trans-placeholder [formControl]="dataSource.searchQuery">
+                    <svg-icon name="search"></svg-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-inner selected" [class.hidden]="!dataSource.anyRowsSelected() || !selectedActions.children.length">
+            <div class="left">{{dataSource.selectedRows.selected.length}} <span class="text" trans>{{itemsName}} Selected</span></div>
+            <div class="right" #selectedActions><ng-content select="[headerSelectedActions]"></ng-content></div>
+        </div>
+    </div>
+
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? dataSource.masterToggle() : null"
+                              [checked]="dataSource.allRowsSelected()"
+                              [indeterminate]="dataSource.anyRowsSelected() && ! dataSource.allRowsSelected()">
+                </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? dataSource.selectedRows.toggle(row) : null"
+                              [checked]="dataSource.selectedRows.isSelected(row)">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
+
+        <ng-content></ng-content>
+
+        <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: columns"></mat-row>
+    </mat-table>
+
+    <div #noResults><ng-content *ngIf="dataSource.isEmpty()" select="no-results-message"></ng-content></div>
+
+    <no-results-message *ngIf="!noResults.children.length && dataSource.isEmpty()">
+        <span primary-text trans>Nothing To Display.</span>
+        <span secondary-text trans>Seems like no {{itemsName}} have been created yet.</span>
+    </no-results-message>
+
+    <mat-paginator [class.hidden]="!dataSource.config.dataPaginator" [pageSize]="15" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+</div>

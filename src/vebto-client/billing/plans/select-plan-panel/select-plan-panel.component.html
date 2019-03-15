@@ -1,0 +1,14 @@
+<div class="plans" [class.has-recommended]="hasRecommendedPlan">
+    <div class="plan" *ngFor="let plan of getAllPlans()" [class.recommended]="plan.recommended">
+        <div class="name">{{plan.name}}</div>
+        <div class="price-box">
+            <div class="amount">
+                <div class="currency">{{plan.currency_symbol}}</div>
+                <div class="number">{{plan.amount | number:'1.2'}}</div>
+            </div>
+            <div class="interval">/{{plan.interval}}</div>
+        </div>
+        <plan-features-list [plan]="plan"></plan-features-list>
+        <button class="select-plan-button" (click)="selectPlan(plan)" mat-raised-button color="accent" trans>Select</button>
+    </div>
+</div>

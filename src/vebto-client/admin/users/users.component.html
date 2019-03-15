@@ -1,0 +1,51 @@
+<data-table [dataSource]="dataSource" itemsName="users" matSort>
+    <button mat-raised-button color="accent" (click)="showCrupdateUserModal()" *ngIf="currentUser.hasPermission('users.create')" headerActions trans>Add</button>
+
+    <button mat-icon-button matTooltip="Delete selected" (click)="maybeDeleteSelectedUsers()" headerSelectedActions *ngIf="currentUser.hasPermission('users.delete')">
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="avatar">
+        <mat-header-cell *matHeaderCellDef trans>Avatar</mat-header-cell>
+        <mat-cell *matCellDef="let user"> <img [src]="user.avatar"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Email</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="subscribed" *ngIf="settings.get('billing.enable')">
+        <mat-header-cell *matHeaderCellDef trans>Subscribed</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.is_subscribed ? 'Yes' : 'No'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="groups">
+        <mat-header-cell *matHeaderCellDef trans>Groups</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{makeGroupsList(user.groups)}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="permissions">
+        <mat-header-cell *matHeaderCellDef trans>Permissions</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{makePermissionsList(user.permissions)}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="first_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>First Name</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.first_name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="last_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Last Name</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.last_name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <button mat-icon-button (click)="showCrupdateUserModal(user)" *ngIf="currentUser.hasPermission('users.update')" matTooltip="Edit user">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

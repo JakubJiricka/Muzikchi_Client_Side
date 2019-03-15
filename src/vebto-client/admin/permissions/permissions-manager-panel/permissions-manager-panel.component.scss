@@ -1,0 +1,35 @@
+@import "../../../scss/variables";
+
+permissions-manager-panel {
+  display: block;
+  margin: 25px 0 35px;
+
+  .header {
+    display: flex;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $site-border-color-200;
+    align-items: flex-end;
+
+    > .title {
+      font-weight: 500;
+    }
+
+    > button {
+      margin-left: auto;
+    }
+  }
+
+  .manage-permissions {
+    margin-top: 10px;
+
+    .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip), .mat-chip {
+      margin: 0 8px 8px 0;
+    }
+  }
+
+  .error {
+    margin-top: 10px;
+    color: $danger-bg-color;
+  }
+}

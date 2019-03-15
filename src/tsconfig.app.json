@@ -1,0 +1,27 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "es2015",
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "stripe-v3",
+      "youtube",
+      "hammerjs",
+      "clipboard"
+    ]
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ],
+  "paths": {
+    "vebto-client": [
+      "vebto-client"
+    ]
+  },
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false
+  }
+}

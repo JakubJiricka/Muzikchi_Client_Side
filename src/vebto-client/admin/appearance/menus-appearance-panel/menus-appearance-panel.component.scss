@@ -1,0 +1,57 @@
+@import "../../../scss/variables";
+
+menus-appearance-panel {
+  display: block;
+
+  .menu-settings {
+    margin: 10px 0;
+
+    select {
+      text-transform: capitalize;
+    }
+  }
+
+  .mat-expansion-panel {
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid $site-border-color-200;
+
+    > .mat-expansion-panel-header {
+      min-height: 57px;
+      background-color: #fff;
+
+      &.mat-expanded {
+        border-bottom: 1px solid $site-border-color-200;
+      }
+
+      &:hover {
+        background-color: $admin-hover-color;
+      }
+    }
+
+    > .mat-expansion-panel-content {
+      background-color: $site-bg-color-200;
+
+      > .mat-expansion-panel-body {
+        padding: 15px 15px 0;
+      }
+    }
+
+    .mat-action-row {
+      border: none;
+      padding: 0 15px 10px;
+    }
+
+    .drag-handle {
+      color: $icon-color-dark;
+      margin-right: 8px;
+      cursor: move;
+      vertical-align: middle;
+    }
+  }
+
+  .action-buttons {
+    float: right;
+    margin: 10px 0;
+  }
+}

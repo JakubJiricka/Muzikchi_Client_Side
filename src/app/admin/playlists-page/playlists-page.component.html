@@ -1,0 +1,46 @@
+<data-table [dataSource]="dataSource" itemsName="playlists" matSort>
+    <button type="button" mat-raised-button color="accent" *ngIf="currentUser.hasPermission('playlists.create')" (click)="showCrupdatePlaylistModal()" headerActions trans>Add</button>
+
+    <button mat-icon-button matTooltip="Delete selected" (click)="confirmPlaylistsDeletion()" *ngIf="currentUser.hasPermission('playlists.delete')" headerSelectedActions>
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef trans>Image</mat-header-cell>
+        <mat-cell *matCellDef="let playlist"><img [src]="wpImages.getPlaylistImage(playlist)"></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Name</mat-header-cell>
+        <mat-cell *matCellDef="let playlist"> {{playlist.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="owner">
+        <mat-header-cell *matHeaderCellDef trans>Owner</mat-header-cell>
+        <mat-cell *matCellDef="let playlist"> {{playlist.editors[0] && playlist.editors[0]['display_name']}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="public">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Public</mat-header-cell>
+        <mat-cell *matCellDef="let playlist"> {{playlist.public ? 'Yes' : 'No'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="views">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Views</mat-header-cell>
+        <mat-cell *matCellDef="let playlist"> {{playlist.views}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updated_at">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Last Updated</mat-header-cell>
+        <mat-cell *matCellDef="let playlist"> {{playlist.updated_at | formattedDate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let playlist">
+            <button mat-icon-button (click)="showCrupdatePlaylistModal(playlist)" *ngIf="currentUser.hasPermission('playlists.update')" matTooltip="Edit playlist">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

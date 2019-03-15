@@ -1,0 +1,41 @@
+<data-table [dataSource]="dataSource" itemsName="lyrics" matSort>
+    <button mat-raised-button (click)="openCrupdateLyricModal()" color="accent" *ngIf="currentUser.hasPermission('lyrics.create')" headerActions trans>Add</button>
+
+    <button mat-icon-button matTooltip="Delete selected" (click)="confirmLyricsDeletion()" headerSelectedActions *ngIf="currentUser.hasPermission('lyrics.delete')">
+        <svg-icon name="delete"></svg-icon>
+    </button>
+
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef trans>Image</mat-header-cell>
+        <mat-cell *matCellDef="let lyric"> <img [src]="getLyricImage(lyric)"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Song</mat-header-cell>
+        <mat-cell *matCellDef="let lyric"> {{lyric.track ? lyric.track.name : '-'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="artist">
+        <mat-header-cell *matHeaderCellDef trans>Artist</mat-header-cell>
+        <mat-cell *matCellDef="let lyric"> {{lyric.track ? lyric.track.album.artist.name : '-'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="album">
+        <mat-header-cell *matHeaderCellDef trans>Album</mat-header-cell>
+        <mat-cell *matCellDef="let lyric"> {{lyric.track ? lyric.track.album.name : '-'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="last_updated">
+        <mat-header-cell *matHeaderCellDef mat-sort-header trans>Last Updated</mat-header-cell>
+        <mat-cell *matCellDef="let lyric"> {{lyric.updated_at | formattedDate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let lyric">
+            <button mat-icon-button (click)="openCrupdateLyricModal(lyric)" *ngIf="currentUser.hasPermission('lyrics.update')" matTooltip="Edit lyric">
+                <svg-icon name="edit"></svg-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+</data-table>

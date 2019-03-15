@@ -1,0 +1,53 @@
+@import "../../../scss/variables";
+
+upgrade-page-aside {
+  padding: 30px 20px;
+  border-left: 1px solid $site-border-color-200;
+  min-width: 320px;
+
+  .header {
+    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 20px 20px 0;
+  }
+
+  plan-features-list {
+    text-align: left;
+  }
+
+  .mat-divider {
+    margin: 20px 0 30px;
+  }
+
+  .secure-shopping {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid $site-border-color-200;
+    border-radius: 6px;
+    max-width: 275px;
+
+    .icon-container {
+      margin-right: 15px;
+
+      svg-icon {
+        color: lighten($site-accent-color, 5%);
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .text {
+      > .primary {
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        font-size: 1.4rem;
+      }
+
+      > .secondary {
+        font-size: 1.3rem;
+        color: $site-text-color-300;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title trans>Select Plan</h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button"><svg-icon name="close"></svg-icon></button>
+</div>
+
+<div class="mat-dialog-contents" mat-dialog-content>
+    <mat-horizontal-stepper [linear]="true">
+        <mat-step label="Subscription plan" [completed]="state.initialPlan">
+            <select-plan-panel (selected)="nextStep()"></select-plan-panel>
+        </mat-step>
+
+        <mat-step label="Subscription interval" [completed]="state.selectedPlan">
+            <select-plan-period-panel [showSidebar]="false" (selected)="close()"></select-plan-period-panel>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

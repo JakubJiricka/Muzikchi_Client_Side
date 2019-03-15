@@ -1,0 +1,72 @@
+@import "../../../scss/variables";
+
+material-navbar {
+  display: block;
+  background-color: $site-primary-color-200;
+  color: $site-text-color-100;
+  box-shadow: $box-shadow-3;
+  position: relative;
+  z-index: 2;
+  height: 70px;
+
+  .container {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+  }
+
+  .logo {
+    display: block;
+    height: auto;
+    width: 100%;
+    max-width: 150px;
+  }
+
+  .text-logo {
+    font-size: 2.2rem;
+    color: $site-text-color-100;
+  }
+
+  .toggle-sidebar-button {
+    display: block;
+    vertical-align: middle;
+    margin: 0 30px 0 20px;
+  }
+
+  custom-menu {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    flex-grow: 0;
+
+    .nav-item {
+      white-space: nowrap;
+
+      > a, > button, > .text {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+        padding: 5px 15px;
+        border-radius: 5px;
+        line-height: 22px;
+      }
+
+      > a:hover {
+        text-decoration: underline;
+      }
+
+      .router-link-active, .active {
+        color: $site-text-color-100;
+        background-color: $site-primary-color-100;
+      }
+    }
+  }
+
+  logged-in-user-widget {
+    margin-left: auto;
+  }
+}

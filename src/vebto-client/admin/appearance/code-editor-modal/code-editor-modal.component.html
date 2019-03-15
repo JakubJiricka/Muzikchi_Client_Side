@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h2 class="mat-dialog-title" mat-dialog-title trans>Code Editor</h2>
+    <button type="button" (click)="close()" class="close-button no-style icon-button">
+        <svg-icon name="close"></svg-icon>
+    </button>
+</div>
+
+<div class="mat-dialog-content" mat-dialog-content>
+    <div class="editor-container">
+        <div class="editor" #editor></div>
+    </div>
+</div>
+
+<div class="mat-dialog-actions" mat-dialog-actions>
+    <button (click)="close()" type="button" mat-button class="button cancel" trans>Cancel</button>
+    <button type="submit" class="button primary submit-button" mat-raised-button color="accent" (click)="confirm()" trans>Update</button>
+</div>
+
+<loading-indicator [isVisible]="loading" class="overlay"></loading-indicator>

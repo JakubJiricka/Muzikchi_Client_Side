@@ -1,0 +1,27 @@
+@import "../../../scss/variables";
+
+order-summary {
+  display: block;
+  margin: 45px 0 35px;
+  border-top: 1px solid $site-border-color-200;
+  border-bottom: 1px solid $site-border-color-200;
+  
+  &:empty {
+    display: none;
+  }
+
+  .line {
+    display: flex;
+    padding: 15px 0;
+    font-size: 1.5rem;
+
+    .summary-right {
+      margin-left: auto;
+    }
+  }
+
+  .emphasis {
+    font-weight: 500;
+    border-top: 1px solid $site-border-color-200;
+  }
+}
